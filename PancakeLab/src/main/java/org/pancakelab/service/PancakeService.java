@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface PancakeService {
     Order createOrder(int building, int room);
 
-    void addPancakes(PancakeType type, UUID orderId, int count);
+    void addPancakes(PancakeType type, List<String> ingredients, UUID orderId, int count);
 
     List<String> viewOrder(UUID orderId);
 
@@ -27,4 +27,5 @@ public interface PancakeService {
     Set<UUID> listPreparedOrders();
 
     Object[] deliverOrder(UUID orderId);
+
 }

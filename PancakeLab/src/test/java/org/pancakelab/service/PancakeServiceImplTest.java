@@ -170,9 +170,13 @@ public class PancakeServiceImplTest {
 
     private void addPancakes() {
 
-        pancakeServiceImpl.addPancakes(PancakeType.DARK_CHOCOLATE, order.id(), 3);
-        pancakeServiceImpl.addPancakes(PancakeType.MILK_CHOCOLATE, order.id(), 3);
-        pancakeServiceImpl.addPancakes(PancakeType.MILK_CHOCOLATE_HAZELNUTS, order.id(), 3);
+        List<String> darkChocolateIngredients = List.of("dark chocolate");
+        pancakeServiceImpl.addPancakes(PancakeType.DARK_CHOCOLATE, darkChocolateIngredients, order.id(), 3);
+
+        pancakeServiceImpl.addPancakes(PancakeType.MILK_CHOCOLATE, List.of(), order.id(), 3);
+
+        List<String> milkChocolateIngredients = List.of("milk chocolate", "hazelnuts");
+        pancakeServiceImpl.addPancakes(PancakeType.MILK_CHOCOLATE_HAZELNUTS, milkChocolateIngredients, order.id(), 3);
 
     }
 }

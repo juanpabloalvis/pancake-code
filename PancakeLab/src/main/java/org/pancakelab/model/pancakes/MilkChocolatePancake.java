@@ -3,11 +3,11 @@ package org.pancakelab.model.pancakes;
 import java.util.List;
 import java.util.UUID;
 
-public class SinglePancake implements PancakeRecipe {
+public class MilkChocolatePancake implements PancakeRecipe {
     private final List<String> ingredients;
     private UUID orderId;
 
-    public SinglePancake(List<String> ingredients) {
+    public MilkChocolatePancake(List<String> ingredients) {
         this.ingredients = ingredients;
     }
 

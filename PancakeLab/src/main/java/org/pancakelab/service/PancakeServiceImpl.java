@@ -3,7 +3,6 @@ package org.pancakelab.service;
 import org.pancakelab.model.Order;
 import org.pancakelab.model.pancakes.PancakeRecipe;
 import org.pancakelab.model.pancakes.PancakeType;
-import org.pancakelab.model.pancakes.SinglePancake;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +17,7 @@ public class PancakeServiceImpl implements PancakeService {
     private static final Set<UUID> completedOrders = Collections.synchronizedSet(new HashSet<>());
     private static final Set<UUID> preparedOrders = Collections.synchronizedSet(new HashSet<>());
     private static final List<PancakeRecipe> pancakes = Collections.synchronizedList(new ArrayList<>());
+    private PancakeFactory pancakeFactory = new PancakeFactory();
 
     private static Order getOrderById(UUID orderId) {
         return orders.stream().filter(o -> o.id().equals(orderId)).findFirst()
@@ -37,12 +37,14 @@ public class PancakeServiceImpl implements PancakeService {
     }
 
     @Override
-    public void addPancakes(PancakeType type, UUID orderId, int count) {
+    public void addPancakes(PancakeType type, List<String> customIngredients, UUID orderId, int count) {
 
         Order order = getOrderById(orderId);
 
         for (int i = 0; i < count; ++i) {
-            PancakeRecipe pancake = new SinglePancake(type.ingredients());
+            List<String> ingredients = customIngredients.isEmpty() ? type.ingredients() : customIngredients;
+
+            PancakeRecipe pancake = pancakeFactory.createPancake(type, ingredients);
             pancake.setOrderId(order.id());
             pancakes.add(pancake);
             OrderLog.logAddPancake(order, pancake.description(), pancakes);
