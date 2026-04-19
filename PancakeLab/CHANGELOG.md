@@ -11,7 +11,7 @@
 
 ## Proposed future improvements
 
-- Consider splitting `Order` and `Recipes` into two separate services
+- Consider splitting PancakeService into two separate services: `OrderService` and `PancakeService`
 - Improve tests by evaluating multiple orders
-- Improve tests using Mockito `spy` to avoid extra methods used only in tests
+- Improve tests using Mockito `spy` to avoid expose extra methods that are used only in tests
 - Improve logging written to the console.
