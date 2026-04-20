@@ -11,14 +11,14 @@ import org.pancakelab.model.pancakes.PancakeType;
 import java.util.List;
 
 public class PancakeFactory {
-    public PancakeRecipe createPancake(PancakeType type, List<String> ingredients) {
+    public PancakeRecipe createPancake(PancakeType type) {
 
         return switch (type) {
-            case DARK_CHOCOLATE -> new DarkChocolatePancake(ingredients);
-            case DARK_CHOCOLATE_WHIPPED_CREAM_HAZELNUTS -> new DarkChocolateWhippedCreamHazelnutsPancake(ingredients);
-            case DARK_CHOCOLATE_WHIPPED_CREAM -> new DarkChocolateWhippedCreamPancake(ingredients);
-            case MILK_CHOCOLATE -> new MilkChocolatePancake(ingredients);
-            case MILK_CHOCOLATE_HAZELNUTS -> new MilkChocolateHazelnutsPancake(ingredients);
+            case DARK_CHOCOLATE -> new DarkChocolatePancake();
+            case DARK_CHOCOLATE_WHIPPED_CREAM_HAZELNUTS -> new DarkChocolateWhippedCreamHazelnutsPancake();
+            case DARK_CHOCOLATE_WHIPPED_CREAM -> new DarkChocolateWhippedCreamPancake();
+            case MILK_CHOCOLATE -> new MilkChocolatePancake();
+            case MILK_CHOCOLATE_HAZELNUTS -> new MilkChocolateHazelnutsPancake();
         };
     }
 

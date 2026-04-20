@@ -6,10 +6,6 @@ import java.util.UUID;
 public class DarkChocolateWhippedCreamHazelnutsPancake extends DarkChocolateWhippedCreamPancake {
     private UUID orderId;
 
-    public DarkChocolateWhippedCreamHazelnutsPancake(List<String> ingredients) {
-        super(ingredients);
-    }
-
     @Override
     public UUID getOrderId() {
         return orderId;

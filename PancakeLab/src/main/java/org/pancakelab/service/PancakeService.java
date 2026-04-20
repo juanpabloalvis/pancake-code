@@ -1,6 +1,7 @@
 package org.pancakelab.service;
 
 import org.pancakelab.model.Order;
+import org.pancakelab.model.pancakes.PancakeRecipe;
 import org.pancakelab.model.pancakes.PancakeType;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.UUID;
 public interface PancakeService {
     Order createOrder(int building, int room);
 
-    void addPancakes(PancakeType type, List<String> ingredients, UUID orderId, int count);
+    void addPancakes(PancakeRecipe pancake, UUID orderId, int count);
 
     List<String> viewOrder(UUID orderId);
 
@@ -28,4 +29,5 @@ public interface PancakeService {
 
     Object[] deliverOrder(UUID orderId);
 
+    void addIngredient(PancakeRecipe pancake, String ingredient);
 }

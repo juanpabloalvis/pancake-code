@@ -37,14 +37,12 @@ public class PancakeServiceImpl implements PancakeService {
     }
 
     @Override
-    public void addPancakes(PancakeType type, List<String> customIngredients, UUID orderId, int count) {
+    public void addPancakes(PancakeRecipe pancake, UUID orderId, int count) {
 
         Order order = getOrderById(orderId);
 
         for (int i = 0; i < count; ++i) {
-            List<String> ingredients = customIngredients.isEmpty() ? type.ingredients() : customIngredients;
 
-            PancakeRecipe pancake = pancakeFactory.createPancake(type, ingredients);
             pancake.setOrderId(order.id());
             pancakes.add(pancake);
             OrderLog.logAddPancake(order, pancake.description(), pancakes);
@@ -119,6 +117,15 @@ public class PancakeServiceImpl implements PancakeService {
         preparedOrders.removeIf(u -> u.equals(orderId));
 
         return new Object[]{order, pancakesToDeliver};
+    }
+
+    @Override
+    public void addIngredient(PancakeRecipe pancake, String ingredient) {
+
+        List<String> ingredients = new ArrayList<>(pancake.ingredients());
+        ingredients.add(ingredient);
+        pancake.setIngredients(Collections.unmodifiableList(ingredients));
+
     }
 
 }
