@@ -2,8 +2,6 @@ package org.pancakelab.service;
 
 import org.pancakelab.model.Order;
 import org.pancakelab.model.pancakes.PancakeRecipe;
-import org.pancakelab.model.pancakes.PancakeType;
-import org.pancakelab.model.pancakes.SinglePancake;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,12 +35,11 @@ public class PancakeServiceImpl implements PancakeService {
     }
 
     @Override
-    public void addPancakes(PancakeType type, UUID orderId, int count) {
+    public void addPancakes(PancakeRecipe pancake, UUID orderId, int count) {
 
         Order order = getOrderById(orderId);
 
         for (int i = 0; i < count; ++i) {
-            PancakeRecipe pancake = new SinglePancake(type.ingredients());
             pancake.setOrderId(order.id());
             pancakes.add(pancake);
             OrderLog.logAddPancake(order, pancake.description(), pancakes);
@@ -117,6 +114,15 @@ public class PancakeServiceImpl implements PancakeService {
         preparedOrders.removeIf(u -> u.equals(orderId));
 
         return new Object[]{order, pancakesToDeliver};
+    }
+
+    @Override
+    public void addIngredient(PancakeRecipe pancake, String ingredient) {
+
+        List<String> ingredients = new ArrayList<>(pancake.ingredients());
+        ingredients.add(ingredient);
+        pancake.setIngredients(Collections.unmodifiableList(ingredients));
+
     }
 
 }

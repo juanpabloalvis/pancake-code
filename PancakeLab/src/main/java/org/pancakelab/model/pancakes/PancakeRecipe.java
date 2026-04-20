@@ -1,5 +1,6 @@
 package org.pancakelab.model.pancakes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,4 +15,6 @@ public interface PancakeRecipe {
     void setOrderId(UUID orderId);
 
     List<String> ingredients();
+
+    void setIngredients(List<String> ingredients);
 }

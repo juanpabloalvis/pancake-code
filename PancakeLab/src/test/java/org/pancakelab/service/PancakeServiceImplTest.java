@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.pancakelab.model.Order;
+import org.pancakelab.model.pancakes.PancakeRecipe;
 import org.pancakelab.model.pancakes.PancakeType;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class PancakeServiceImplTest {
     private final static String MILK_CHOCOLATE_PANCAKE_DESCRIPTION = "Delicious pancake with milk chocolate!";
     private final static String MILK_CHOCOLATE_HAZELNUTS_PANCAKE_DESCRIPTION = "Delicious pancake with milk chocolate, hazelnuts!";
     private final PancakeService pancakeServiceImpl = new PancakeServiceImpl();
+    private final PancakeFactory pancakeFactory = new PancakeFactory();
+
 
     private Order order = null;
 
@@ -170,9 +173,19 @@ public class PancakeServiceImplTest {
 
     private void addPancakes() {
 
-        pancakeServiceImpl.addPancakes(PancakeType.DARK_CHOCOLATE, order.id(), 3);
-        pancakeServiceImpl.addPancakes(PancakeType.MILK_CHOCOLATE, order.id(), 3);
-        pancakeServiceImpl.addPancakes(PancakeType.MILK_CHOCOLATE_HAZELNUTS, order.id(), 3);
+        PancakeRecipe pancakeDarkChocolate = pancakeFactory.createPancake(PancakeType.DARK_CHOCOLATE);
+        pancakeServiceImpl.addIngredient(pancakeDarkChocolate, "dark chocolate");
+        pancakeServiceImpl.addPancakes(pancakeDarkChocolate, order.id(), 3);
+
+        PancakeRecipe pancakeMilkChocolate = pancakeFactory.createPancake(PancakeType.MILK_CHOCOLATE);
+        pancakeServiceImpl.addIngredient(pancakeMilkChocolate, "milk chocolate");
+        pancakeServiceImpl.addPancakes(pancakeMilkChocolate, order.id(), 3);
+
+
+        PancakeRecipe pancakeMilkChocolateHazelnuts = pancakeFactory.createPancake(PancakeType.MILK_CHOCOLATE_HAZELNUTS);
+        pancakeServiceImpl.addIngredient(pancakeMilkChocolateHazelnuts, "milk chocolate");
+        pancakeServiceImpl.addIngredient(pancakeMilkChocolateHazelnuts, "hazelnuts");
+        pancakeServiceImpl.addPancakes(pancakeMilkChocolateHazelnuts, order.id(), 3);
 
     }
 }
